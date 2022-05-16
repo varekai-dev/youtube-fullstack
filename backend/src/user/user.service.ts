@@ -1,4 +1,3 @@
-import { getKeys } from './../utils/getKeys'
 import { genSalt, hash } from 'bcryptjs'
 import { UserDto } from './user.dto'
 import { Injectable, UnauthorizedException } from '@nestjs/common'

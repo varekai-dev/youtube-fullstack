@@ -21,7 +21,7 @@ export class CommentController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Post(':id')
+	@Post()
 	@Auth()
 	async createComment(
 		@CurrentUser('_id') _id: Types.ObjectId,

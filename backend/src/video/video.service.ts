@@ -42,15 +42,11 @@ export class VideoService {
 
 	async byUserId(userId: Types.ObjectId, isPrivate = false) {
 		const userIdCheck = { user: userId }
-		const options = isPrivate
-			? userIdCheck
-			: {
-					...userIdCheck,
-					isPublic: true
-			  }
-		return this.VideoModel.findById(userId)
-			.find(options, '-__v')
+		const options = isPrivate ? userIdCheck : { ...userIdCheck, isPublic: true }
+
+		return this.VideoModel.find(options, '-__v')
 			.sort({ createdAt: 'desc' })
+			.populate('user', 'name avatarPath isVerified')
 			.exec()
 	}
 

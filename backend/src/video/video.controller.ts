@@ -23,8 +23,8 @@ export class VideoController {
 	constructor(private readonly videoService: VideoService) {}
 
 	@Get(':id')
-	async getVideo(@Param('_id', IdValidationPipe) _id: Types.ObjectId) {
-		return this.videoService.byId(_id)
+	async getVideo(@Param('id', IdValidationPipe) id: Types.ObjectId) {
+		return this.videoService.byId(id)
 	}
 
 	@Get('by-user/:userId')

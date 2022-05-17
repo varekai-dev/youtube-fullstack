@@ -1,7 +1,4 @@
-import { prop, Ref } from '@typegoose/typegoose'
 import { IsBoolean, IsString } from 'class-validator'
-import { IsObjectId } from 'class-validator-mongo-object-id'
-import { UserModel } from 'src/user/user.model'
 
 export class VideoDto {
 	@IsString()
@@ -19,6 +16,5 @@ export class VideoDto {
 	@IsString()
 	thumbnailPath: string
 
-	@IsObjectId()
-	userId: string
+	userId?: string
 }

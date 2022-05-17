@@ -8,6 +8,7 @@ import { VideoModule } from './video/video.module'
 import { AuthModule } from './auth/auth.module'
 import { CommentModule } from './comment/comment.module'
 import { TypegooseModule } from 'nestjs-typegoose'
+import { MediaModule } from './media/media.module';
 
 @Module({
 	imports: [
@@ -20,7 +21,8 @@ import { TypegooseModule } from 'nestjs-typegoose'
 		UserModule,
 		VideoModule,
 		CommentModule,
-		AuthModule
+		AuthModule,
+		MediaModule
 	],
 	controllers: [AppController],
 	providers: [AppService]

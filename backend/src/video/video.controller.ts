@@ -34,9 +34,15 @@ export class VideoController {
 		return this.videoService.byUserId(userId)
 	}
 
+	@Get('by-user-private')
+	@Auth()
+	async getVideoByUserIdPrivate(@CurrentUser('_id') _id: Types.ObjectId) {
+		return this.videoService.byUserId(_id)
+	}
+
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Put(':id')
+	@Post()
 	@Auth()
 	async createVideo(@CurrentUser('_id') _id: Types.ObjectId) {
 		return this.videoService.create(_id)
@@ -44,9 +50,9 @@ export class VideoController {
 
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Post()
+	@Put(':id')
 	@Auth()
-	async updateProfile(
+	async updateVideo(
 		@Param('_id', IdValidationPipe) _id: string,
 		@Body() dto: VideoDto
 	) {

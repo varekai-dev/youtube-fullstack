@@ -20,6 +20,13 @@ export class UserService {
 		if (!user) throw new UnauthorizedException('User not found')
 		return user
 	}
+
+	async getUser(_id: Types.ObjectId) {
+		const user = await this.byId(_id)
+
+		return user
+	}
+
 	async updateProfile(_id: Types.ObjectId, dto: UserDto) {
 		const user = await this.byId(_id)
 

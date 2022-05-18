@@ -2,6 +2,8 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 
+import Line from '@/components/ui/Line'
+
 import { defaultValueAuthState } from '@/providers/AuthProvider'
 
 import { AuthService } from '@/services/auth/auth.service'
@@ -9,7 +11,8 @@ import { AuthService } from '@/services/auth/auth.service'
 import { useAuth } from '@/hooks/useAuth'
 
 import logoImg from '../../../../public/img/common/logo.png'
-import avatarImg from '../../../../public/img/main/avatar.jpg'
+
+import ProfileInfo from './profile-info/ProfileInfo'
 
 const Sidebar: FC = () => {
 	const { user, setData } = useAuth()
@@ -22,21 +25,9 @@ const Sidebar: FC = () => {
 					<Image src={logoImg} alt='youtube' width={130} height={42} />
 				</a>
 			</Link>
-			<div className='profile_info'>
-				<Image src={avatarImg} alt='avatar' width={130} height={42} />
-				<div className='name'>Nannie Nelson</div>
-				<div className='location'>Montreal, QC</div>
-			</div>
-			<div className='information'>
-				<div className='item'>
-					<div className='top'>278</div>
-					<div className='bottom'>videos</div>
-				</div>
-				<div className='item'>
-					<div className='top'>36.5k</div>
-					<div className='bottom'>subscribers</div>
-				</div>
-			</div>
+			<ProfileInfo />
+			<Line />
+
 			<div className='line' />
 			<ul className='mnu_sidebar'>
 				<li>

@@ -38,7 +38,7 @@ export class UserController {
 
 	@HttpCode(200)
 	@Put(':userId')
-	@Auth()
+	@Auth() // Change to admin
 	async updateUser(
 		@Param('userId', IdValidationPipe) userId: Types.ObjectId,
 		@Body() dto: UserDto

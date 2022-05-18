@@ -1,0 +1,133 @@
+[{
+  "_id": {
+    "$oid": "628203197bb452bfec1c91e0"
+  },
+  "password": "$2a$10$yCaIwb9hxZ5XEAacx72BauwUX8ijbae578Vp9JT5NHyqDMFSqIXua",
+  "subscribersCount": 1700,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652687641725"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652880988234"
+    }
+  },
+  "__v": 0,
+  "name": "Apiko",
+  "avatarPath": "/uploads/avatar/apiko.jpeg",
+  "description": "former TernopilJS",
+  "location": "Ternopil",
+  "email": "test6@gmail.com"
+},{
+  "_id": {
+    "$oid": "6284b5f9d4aa2096c1b65db0"
+  },
+  "email": "test1@gmail.com",
+  "password": "$2a$10$HX8NpWq16zNes9Og85d3w.K5GdmT/foZCNPqWK8oGDVuob7y5jFIK",
+  "name": "Archakov Blog",
+  "subscribersCount": 30000,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652864505850"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652881996724"
+    }
+  },
+  "__v": 0,
+  "location": "Belarus",
+  "avatarPath": "/uploads/avatar/ArchakovBlog.jpeg",
+  "description": "Блог о программировании на JavaScript, ReactJS, NodeJS"
+},{
+  "_id": {
+    "$oid": "6284b7f83b235ea65a56176e"
+  },
+  "email": "test2@gmail.com",
+  "password": "$2a$10$53PaaXdO2Z7XpeDR8254g.2WXUj5BN04Kse4.ROp/eB3Wly6zK8/K",
+  "subscribersCount": 11000,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652865016057"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652865016057"
+    }
+  },
+  "__v": 0,
+  "avatarPath": "/uploads/avatar/red-group.jpeg",
+  "description": "Интерактивные курсы ",
+  "location": "Russia",
+  "name": "Red Group"
+},{
+  "_id": {
+    "$oid": "6284b7fc3b235ea65a561771"
+  },
+  "email": "test3@gmail.com",
+  "password": "$2a$10$6LV9Yx06KEDJdT7KazYtQu989QM7TA1UcaDfDbfZFb3kchtyRcXR.",
+  "subscribersCount": 25000,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652865020910"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652865020910"
+    }
+  },
+  "__v": 0,
+  "avatarPath": "/uploads/avatar/dou.jpeg",
+  "description": "Канал DOU.ua — найбільшої української спільноти розробників. Інтерв'ю з цікавими особистостями з індустрії, професійні live-дискусії та щомісячні подкасти про IT-новини в Україні та світі. ",
+  "location": "Kiev",
+  "name": "DOU"
+},{
+  "_id": {
+    "$oid": "6284b8023b235ea65a561774"
+  },
+  "email": "test4@gmail.com",
+  "password": "$2a$10$31HZ7eDwRGp1hvdub6OjRebvSuSCRnwvCrYB6MQfxDTBQtQICcBvm",
+  "subscribersCount": 100000,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652865026815"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652865026815"
+    }
+  },
+  "__v": 0,
+  "avatarPath": "/uploads/avatar/SonnySangha.jpeg",
+  "location": "USA",
+  "name": "Sonny Sangha",
+  "description": ". Along the journey I realised my passion existed in helping others excel and pursue their dreams as upcoming developers and if that’s not enough I have cloned most of the applications you have used in your life! "
+},{
+  "_id": {
+    "$oid": "6284f66f19ed906dfde3c2ca"
+  },
+  "email": "test5@gmail.com",
+  "password": "$2a$10$Y7T0bezJ84rr5zAIzsDhsOAIPup2gUu5Ud1k9oTiubq29akdw1uda",
+  "subscribersCount": 75000,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1652881007996"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1652881007996"
+    }
+  },
+  "__v": 0,
+  "avatarPath": "/uploads/avatar/DimaMaleev.jpeg",
+  "description": "Мене звати Діма! ",
+  "location": "USA",
+  "name": "Dima Maleev"
+}]

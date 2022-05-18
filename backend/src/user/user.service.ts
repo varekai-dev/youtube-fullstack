@@ -1,6 +1,10 @@
 import { genSalt, hash } from 'bcryptjs'
 import { UserDto } from './user.dto'
-import { Injectable, UnauthorizedException } from '@nestjs/common'
+import {
+	Injectable,
+	NotFoundException,
+	UnauthorizedException
+} from '@nestjs/common'
 import { ModelType } from '@typegoose/typegoose/lib/types'
 import { InjectModel } from 'nestjs-typegoose'
 import { UserModel } from './user.model'
@@ -21,7 +25,7 @@ export class UserService {
 
 		const isSameUser = await this.UserModel.findOne({ email: dto.email })
 		if (isSameUser && String(_id) !== String(isSameUser._id))
-			throw new UnauthorizedException('Email already exists')
+			throw new NotFoundException('Email already exists')
 
 		if (dto.password) {
 			const salt = await genSalt(10)
@@ -30,14 +34,12 @@ export class UserService {
 
 		user.email = dto.email
 		user.name = dto.name
-		user.location = dto.location
 		user.description = dto.description
+		user.location = dto.location
 		user.avatarPath = dto.avatarPath
-		user.bannerPath = dto.bannerPath
 
-		await user.save()
-
-		return
+		return await user.save()
+		// return await user.populate('user', 'name avatarPath isVerified')
 	}
 
 	async getMostPopular() {

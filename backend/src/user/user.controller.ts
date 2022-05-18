@@ -1,3 +1,4 @@
+import { IdValidationPipe } from './../pipes/id.validation.pipe'
 import {
 	Controller,
 	Body,
@@ -5,7 +6,8 @@ import {
 	ValidationPipe,
 	HttpCode,
 	Put,
-	Get
+	Get,
+	Param
 } from '@nestjs/common'
 import { Auth } from 'src/auth/decorators/auth.decorator'
 import { CurrentUser } from './decorators/user.decorator'
@@ -32,6 +34,16 @@ export class UserController {
 		@Body() dto: UserDto
 	) {
 		return this.userService.updateProfile(_id, dto)
+	}
+
+	@HttpCode(200)
+	@Put(':userId')
+	@Auth()
+	async updateUser(
+		@Param('userId', IdValidationPipe) userId: Types.ObjectId,
+		@Body() dto: UserDto
+	) {
+		return this.userService.updateProfile(userId, dto)
 	}
 
 	@Get('most-popular')

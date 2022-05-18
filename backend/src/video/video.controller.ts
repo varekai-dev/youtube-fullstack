@@ -22,9 +22,10 @@ import { CurrentUser } from 'src/user/decorators/user.decorator'
 export class VideoController {
 	constructor(private readonly videoService: VideoService) {}
 
-	@Get(':id')
-	async getVideo(@Param('id', IdValidationPipe) id: Types.ObjectId) {
-		return this.videoService.byId(id)
+	@Get('get-private/:id')
+	@Auth()
+	async getVideoPrivate(@Param('id', IdValidationPipe) id: Types.ObjectId) {
+		return this.videoService.byId(id, false)
 	}
 
 	@Get('by-user/:userId')
@@ -37,7 +38,7 @@ export class VideoController {
 	@Get('by-user-private')
 	@Auth()
 	async getVideoByUserIdPrivate(@CurrentUser('_id') _id: Types.ObjectId) {
-		return this.videoService.byUserId(_id)
+		return this.videoService.byUserId(_id, true)
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -53,17 +54,17 @@ export class VideoController {
 	@Put(':id')
 	@Auth()
 	async updateVideo(
-		@Param('_id', IdValidationPipe) _id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: VideoDto
 	) {
-		return this.videoService.update(_id, dto)
+		return this.videoService.update(id, dto)
 	}
 
 	@HttpCode(200)
-	@Delete()
+	@Delete(':id')
 	@Auth()
-	async deleteVideo(@Param('_id', IdValidationPipe) _id: string) {
-		return this.videoService.delete(_id)
+	async deleteVideo(@Param('id', IdValidationPipe) id: string) {
+		return this.videoService.delete(id)
 	}
 
 	@Get()
@@ -76,9 +77,14 @@ export class VideoController {
 		return this.videoService.getMostPopularByViews()
 	}
 
+	@Get(':id')
+	async getVideo(@Param('id', IdValidationPipe) id: Types.ObjectId) {
+		return this.videoService.byId(id)
+	}
+
 	@HttpCode(200)
 	@Put('update-views/:videoId')
-	async updateViews(@Param('_videoId', IdValidationPipe) videoId: string) {
+	async updateViews(@Param('videoId', IdValidationPipe) videoId: string) {
 		return this.videoService.updateCountViews(videoId)
 	}
 
@@ -86,7 +92,7 @@ export class VideoController {
 	@Put('update-likes/:videoId')
 	@Auth()
 	async updateLikes(
-		@Param('_videoId', IdValidationPipe) videoId: string,
+		@Param('videoId', IdValidationPipe) videoId: string,
 		@Query('type') type: 'inc' | 'dis'
 	) {
 		return this.videoService.updateReaction(videoId, type)

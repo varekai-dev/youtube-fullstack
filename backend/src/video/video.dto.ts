@@ -1,10 +1,9 @@
-import { IsBoolean, IsString } from 'class-validator'
+import { IsString } from 'class-validator'
 
 export class VideoDto {
 	@IsString()
 	name: string
 
-	@IsBoolean()
 	isPublic?: boolean
 
 	@IsString()

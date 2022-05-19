@@ -9,8 +9,8 @@ const Slider: FC = () => {
 			modules={[Autoplay]}
 			spaceBetween={7}
 			slidesPerView={2}
-			onSlideChange={() => console.log('slide change')}
-			onSwiper={(swiper) => console.log(swiper)}
+			// onSlideChange={() => console.log('slide change')}
+			// onSwiper={(swiper) => console.log(swiper)}
 			className='slider_wf'
 			autoplay={{
 				delay: 4500

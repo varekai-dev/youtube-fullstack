@@ -1,12 +1,15 @@
-export interface IUser {
-	_id: string
+export interface IUserDto {
+	location: string
 	email: string
-	createdAt: string
-	updatedAt: string
+	description: string
 	name: string
 	avatarPath: string
-	description: string
-	location: string
-	subscriberCount: number
+}
+
+export interface IUser extends IUserDto {
+	_id: string
+	createdAt: string
+	updatedAt: string
+	subscribersCount: number
 	videosCount?: number
 }

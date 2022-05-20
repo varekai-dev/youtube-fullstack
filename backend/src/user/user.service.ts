@@ -22,9 +22,22 @@ export class UserService {
 	}
 
 	async getUser(_id: Types.ObjectId) {
-		const user = await this.byId(_id)
-
-		return user
+		return this.UserModel.aggregate()
+			.match({ _id })
+			.lookup({
+				from: 'Video',
+				foreignField: 'user',
+				localField: '_id',
+				as: 'videos'
+			})
+			.addFields({
+				videosCount: {
+					$size: '$videos'
+				}
+			})
+			.project({ __v: 0, password: 0, videos: 0 })
+			.exec()
+			.then((data) => data[0])
 	}
 
 	async updateProfile(_id: Types.ObjectId, dto: UserDto) {

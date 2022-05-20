@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime.js'
 import Image from 'next/image'
+import Link from 'next/link'
 import React, { FC } from 'react'
 import { formatNumberToK } from 'utils/FormatNumberToK'
 
@@ -14,22 +15,32 @@ dayjs.extend(relativeTime)
 const VideoItem: FC<{ item: IVideo }> = ({ item }) => {
 	return (
 		<div className={styles.video_item}>
-			<div className={styles.thumbnail}>
-				<Image
-					src={item.thumbnailPath}
-					alt={item.name}
-					width={244}
-					height={125}
-				/>
+			<Link href={`/v/${item._id}`}>
+				<a className='block'>
+					<div className={styles.thumbnail}>
+						<Image
+							src={item.thumbnailPath}
+							alt={item.name}
+							width={244}
+							height={125}
+						/>
 
-				<VideoDuration videoPath={item.videoPath} />
-			</div>
-			<div className={styles.author}>{item.user?.name}</div>
-			<div className={styles.name}>{item.name}</div>
-			<div className={styles.number_info}>
-				<div className={styles.views}>VIEWS {formatNumberToK(item.views)}</div>
-				<div className={styles.date}> {dayjs(item.createdAt).fromNow()}</div>
-			</div>
+						<VideoDuration videoPath={item.videoPath} />
+					</div>
+
+					<div className={styles.author}>{item.user?.name}</div>
+					<div className={styles.name}>{item.name}</div>
+					<div className={styles.number_info}>
+						<div className={styles.views}>
+							VIEWS {formatNumberToK(item.views)}
+						</div>
+						<div className={styles.date}>
+							{' '}
+							{dayjs(item.createdAt).fromNow()}
+						</div>
+					</div>
+				</a>
+			</Link>
 		</div>
 	)
 }

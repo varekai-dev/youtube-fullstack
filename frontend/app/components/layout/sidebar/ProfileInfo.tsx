@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import React, { FC } from 'react'
 import { useQuery } from 'react-query'
-import { FormatNumberToK } from 'utils/FormatNumberToK'
+import { formatNumberToK } from 'utils/FormatNumberToK'
 
 import Loader from '@/components/ui/Loader'
 
@@ -34,7 +34,7 @@ const ProfileInfo: FC = () => {
 
 				<div className='item'>
 					<div className='top'>
-						{FormatNumberToK(data?.subscribersCount || 0)}
+						{formatNumberToK(data?.subscribersCount || 0)}
 					</div>
 					<div className='bottom'>subscribers</div>
 				</div>

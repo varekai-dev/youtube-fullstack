@@ -1,0 +1,57 @@
+@import '../../../assets/styles/variables';
+
+.video_item {
+	@apply block relative;
+	> a {
+		> .thumbnail {
+			@apply relative;
+
+			> .hot {
+				@apply absolute rounded-sm text-white flex items-center justify-center w-14 h-6 left-2 top-2;
+				background-color: rgba(229, 27, 23, 0.76);
+			}
+
+			> time {
+				@apply absolute rounded-sm text-white flex items-center justify-center w-14 h-6 left-1.5 bottom-1.5;
+				background-color: rgba(0, 0, 0, 0.5);
+			}
+
+			> .avatar {
+				@apply bg-white p-1 rounded-full absolute;
+				right: 10px;
+				bottom: -30px;
+
+				> span {
+					@apply rounded-full;
+				}
+			}
+		}
+
+		> .author {
+			@apply mt-2 font-normal text-base;
+			color: $gray;
+		}
+
+		> .name {
+			@apply font-semibold mt-1 mb-3 text-lg truncate;
+		}
+	}
+
+	> .description {
+		color: $gray;
+		margin-bottom: 20px;
+	}
+}
+
+.number_info {
+	@apply flex items-center justify-between;
+
+	> div {
+		@apply uppercase font-semibold;
+		color: $gray;
+
+		&.subscribers {
+			@apply text-primary;
+		}
+	}
+}

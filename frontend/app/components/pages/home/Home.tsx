@@ -1,4 +1,3 @@
-import { shuffle } from 'lodash'
 import { FC } from 'react'
 
 import Layout from '@/components/layout/Layout'
@@ -11,15 +10,17 @@ import { IHome } from './home.interface'
 import { Recommended } from './recommended/Recommended'
 import WeeklyFeatured from './weekly-featured/WeeklyFeatured'
 
-const Home: FC<IHome> = ({ weeklyVideos }) => {
+const Home: FC<IHome> = ({ weeklyVideos, randomVideo }) => {
 	const { user } = useAuth()
-	console.log(shuffle(weeklyVideos))
 
 	return (
 		<Layout title='Youtube - Best video'>
 			<div id='wrapper_content'>
 				<div className='left_side'>
-					<WeeklyFeatured />
+					<WeeklyFeatured
+						weeklyVideos={weeklyVideos}
+						randomVideo={randomVideo}
+					/>
 
 					<Line />
 

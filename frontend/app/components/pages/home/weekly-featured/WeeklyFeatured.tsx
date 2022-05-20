@@ -1,8 +1,15 @@
 import { FC } from 'react'
 
+import { IVideo } from '@/types/video.interface'
+
 import Slider from './Slider'
 
-const WeeklyFeatured: FC = () => {
+interface IWeeklyFeatured {
+	weeklyVideos: IVideo[]
+	randomVideo: IVideo
+}
+
+const WeeklyFeatured: FC<IWeeklyFeatured> = ({ weeklyVideos, randomVideo }) => {
 	return (
 		<div className='weekly_featured'>
 			<div className='info_wf'>
@@ -14,7 +21,7 @@ const WeeklyFeatured: FC = () => {
 					consectetur minima vitae. Facilis nostrum cumque illum fugit rem, nam
 					consectetur!
 				</div>
-				<Slider />
+				<Slider videos={weeklyVideos} />
 			</div>
 
 			<div className='top_video'>

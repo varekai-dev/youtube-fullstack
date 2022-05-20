@@ -1,4 +1,5 @@
 import { axiosClassic } from 'api/interceptors'
+import { shuffle } from 'lodash'
 import type { GetStaticProps, NextPage } from 'next'
 
 import Home from '@/components/pages/home/Home'
@@ -12,14 +13,14 @@ const HomePage: NextPage<IHome> = (props) => {
 
 export const getStaticProps: GetStaticProps = async () => {
 	try {
-		const { data: newVideo } = await VideoService.getAll()
+		const { data: newVideos } = await VideoService.getAll()
 		const randomVideo = {}
 		const topVideo = {}
 		const topChannels: never[] = []
 		return {
 			props: {
-				newVideo,
-				weeklyVideos: newVideo.sort(() => Math.random() - 0.5),
+				newVideos,
+				weeklyVideos: shuffle(newVideos).slice(0, 5),
 				topVideo,
 				randomVideo,
 				topChannels
@@ -29,7 +30,7 @@ export const getStaticProps: GetStaticProps = async () => {
 	} catch (error) {
 		return {
 			props: {
-				newVideo: {},
+				newVideos: [],
 				weeklyVideos: [],
 				topVideo: {},
 				randomVideo: {},

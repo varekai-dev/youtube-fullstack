@@ -10,7 +10,7 @@ import { IHome } from './home.interface'
 import { Recommended } from './recommended/Recommended'
 import WeeklyFeatured from './weekly-featured/WeeklyFeatured'
 
-const Home: FC<IHome> = ({ weeklyVideos, randomVideo }) => {
+const Home: FC<IHome> = (props) => {
 	const { user } = useAuth()
 
 	return (
@@ -18,15 +18,15 @@ const Home: FC<IHome> = ({ weeklyVideos, randomVideo }) => {
 			<div id='wrapper_content'>
 				<div className='left_side'>
 					<WeeklyFeatured
-						weeklyVideos={weeklyVideos}
-						randomVideo={randomVideo}
+						weeklyVideos={props.weeklyVideos}
+						randomVideo={props.randomVideo}
 					/>
 
 					<Line />
 
-					<Recommended />
+					<Recommended newVideos={props.newVideos} />
 				</div>
-				<RightSide />
+				<RightSide topVideo={props.topVideo} topChannels={props.topChannels} />
 			</div>
 		</Layout>
 	)

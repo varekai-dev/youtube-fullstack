@@ -26,7 +26,9 @@ export class UserService {
 				as: 'videos'
 			})
 			.addFields({
-				videosCount: { $size: '$videos' }
+				videosCount: {
+					$size: '$videos'
+				}
 			})
 			.project({ __v: 0, password: 0, videos: 0 })
 			.exec()

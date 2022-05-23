@@ -1,0 +1,40 @@
+@import '../../../../assets/styles/variables';
+
+.search_top {
+	@apply mx-auto relative;
+	max-width: 400px;
+
+	> label {
+		@apply block relative;
+
+		input {
+			@apply rounded-3xl py-2 px-4 w-full block;
+			border: 1px solid $light_gray;
+			transition: box-shadow 0.4s ease;
+
+			&::placeholder {
+				@apply italic opacity-80;
+				color: $gray;
+			}
+
+			&:focus {
+				box-shadow: 0 3px 6px rgba(0, 0, 0, 0.04);
+			}
+		}
+
+		img {
+			@apply absolute right-4 top-2;
+			max-width: 20px;
+		}
+	}
+}
+
+.result {
+	@apply shadow-block animate-scaleIn flex flex-wrap absolute z-10 p-5 mt-3;
+	left: -144px;
+
+	> div {
+		@apply mr-4 last:mr-0;
+		width: 23%;
+	}
+}

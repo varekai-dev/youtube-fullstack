@@ -1,8 +1,14 @@
-import React, { FC, useRef } from 'react'
+import React, { FC, useEffect, useRef, useState } from 'react'
 
 const VideoDuration: FC<{ videoPath: string }> = ({ videoPath }) => {
 	const ref = useRef<HTMLVideoElement>(null)
-	const duration = ref.current?.duration || 0
+
+	const [duration, setDuration] = useState(ref.current?.duration || 0)
+
+	useEffect(() => {
+		const duration = ref.current?.duration
+		if (duration) setDuration(duration)
+	}, [ref.current?.duration])
 
 	const minutes = Math.floor(duration / 60)
 	const seconds = Math.floor(duration % 60)

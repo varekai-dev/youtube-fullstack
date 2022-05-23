@@ -27,14 +27,15 @@
 			max-width: 20px;
 		}
 	}
-}
+	.result {
+		@apply shadow-block flex flex-wrap absolute z-10 p-5 mt-3;
+		left: 50%;
+		transform: translateX(-50%);
+		min-width: 100%;
 
-.result {
-	@apply shadow-block animate-scaleIn flex flex-wrap absolute z-10 p-5 mt-3;
-	left: -144px;
-
-	> div {
-		@apply mr-4 last:mr-0;
-		width: 23%;
+		> div {
+			@apply mr-4 last:mr-0;
+			width: 23%;
+		}
 	}
 }

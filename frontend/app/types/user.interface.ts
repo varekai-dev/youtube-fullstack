@@ -12,4 +12,5 @@ export interface IUser extends IUserDto {
 	updatedAt: string
 	subscribersCount: number
 	videosCount?: number
+	isVerified: boolean
 }

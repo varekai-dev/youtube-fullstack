@@ -29,6 +29,7 @@ export class VideoService {
 	async getMostPopularByViews() {
 		return this.VideoModel.find({ views: { $gt: 0 } }, '-__v')
 			.sort({ views: -1 })
+			.populate('user', 'name avatarPath isVerified')
 			.exec()
 	}
 	async getAll(searchTerm?: string) {

@@ -23,7 +23,7 @@ const ChannelItem: FC<{ item: IUser }> = ({ item }) => {
 				<div className='info'>
 					<div
 						className={cn('name', {
-							verified: true
+							verified: item.isVerified
 						})}
 					>
 						{item.name}

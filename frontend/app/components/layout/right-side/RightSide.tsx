@@ -11,7 +11,7 @@ import TopChannels from './top-channels/TopChannels'
 const RightSide: FC<{ topVideo: IVideo; topChannels: IUser[] }> = (props) => {
 	return (
 		<div className='right_side'>
-			<MostPopularVideo />
+			<MostPopularVideo video={props.topVideo} />
 			<Line />
 			<TopChannels channels={props.topChannels} />
 		</div>

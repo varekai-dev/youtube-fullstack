@@ -1,3 +1,4 @@
+import cn from 'classnames'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime.js'
 import Image from 'next/image'
@@ -11,7 +12,7 @@ import { IVideoItem } from './video-item.interface'
 
 dayjs.extend(relativeTime)
 
-const VideoItem: FC<IVideoItem> = ({ item, isLarge, isAvatar }) => {
+const VideoItem: FC<IVideoItem> = ({ item, isLarge, isAvatar, tag }) => {
 	return (
 		<div className={styles.video_item}>
 			<Link href={`/v/${item._id}`}>
@@ -26,6 +27,7 @@ const VideoItem: FC<IVideoItem> = ({ item, isLarge, isAvatar }) => {
 								layout='responsive'
 							/>
 							<VideoDuration videoPath={item.videoPath} />
+							{tag && <div className={styles.hot}>{tag}</div>}
 							{isAvatar && (
 								<div className={styles.avatar}>
 									<Image
@@ -38,7 +40,13 @@ const VideoItem: FC<IVideoItem> = ({ item, isLarge, isAvatar }) => {
 							)}
 						</div>
 					)}
-					<div className={styles.author}>{item.user?.name}</div>
+					<div
+						className={cn(styles.author, {
+							verified: item?.user?.isVerified
+						})}
+					>
+						{item.user?.name}
+					</div>
 					<div className={styles.name}>{item.name}</div>
 				</a>
 			</Link>

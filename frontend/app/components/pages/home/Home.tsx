@@ -7,7 +7,7 @@ import Line from '@/components/ui/Line'
 import { useAuth } from '@/hooks/useAuth'
 
 import { IHome } from './home.interface'
-import { Recommended } from './recommended/Recommended'
+import Recommended from './recommended/Recommended'
 import WeeklyFeatured from './weekly-featured/WeeklyFeatured'
 
 const Home: FC<IHome> = (props) => {

@@ -1,0 +1,25 @@
+import { FC } from 'react'
+
+import Layout from '@/components/layout/Layout'
+import ChannelInfo from '@/components/pages/channel/ChannelInfo/ChannelInfo'
+import { IChannel } from '@/components/pages/channel/channel.interface'
+import Recommended from '@/components/pages/home/recommended/Recommended'
+import VideoItem from '@/components/ui/video-item/VideoItem'
+
+const Channel: FC<IChannel> = ({ channel, videos, randomVideo }) => {
+	return (
+		<Layout title={channel.name}>
+			<div className={'flex flex-wrap justify-around p-9'}>
+				<div className={'w-1/3 pr-2'}>
+					<ChannelInfo channel={channel} />
+				</div>
+				<div className={'w-1/3 pl-2'}>
+					<VideoItem item={randomVideo} />
+				</div>
+			</div>
+			<Recommended newVideos={videos} />
+		</Layout>
+	)
+}
+
+export default Channel

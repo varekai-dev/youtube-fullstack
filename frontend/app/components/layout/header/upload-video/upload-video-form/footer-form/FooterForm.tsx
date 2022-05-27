@@ -1,5 +1,5 @@
 import cn from 'classnames'
-import React, { FC } from 'react'
+import { FC } from 'react'
 import { MdCheckCircle, MdUpload } from 'react-icons/md'
 
 import Button from '@/components/ui/Button/Button'
@@ -14,18 +14,17 @@ const FooterForm: FC<{ percent: number; isUploaded: boolean }> = ({
 		<div className={styles.footer}>
 			<div
 				className={cn(styles.status, {
-					[styles['icons-uploaded']]: !isUploaded
+					[styles['icons-uploaded']]: isUploaded
 				})}
 			>
 				<MdUpload className={styles['upload-icon']} />
 				<MdCheckCircle className={styles['check-icon']} />
 				<span>
-					{' '}
-					{isUploaded ? 'Video uploaded' : `Uploading ${percent}%...`}
+					{isUploaded ? 'Video is uploaded' : `Uploading ${percent}%...`}
 				</span>
 			</div>
 			<div>
-				<Button type='submit'>Save</Button>
+				<Button>Save</Button>
 			</div>
 		</div>
 	)

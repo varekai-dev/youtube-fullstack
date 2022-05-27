@@ -1,6 +1,11 @@
 import { FC } from 'react'
 import { Controller } from 'react-hook-form'
 
+import SuccessMessage from '@/components/layout/header/upload-video/upload-video-form/SuccessMessage'
+import FooterForm from '@/components/layout/header/upload-video/upload-video-form/footer-form/FooterForm'
+import TogglePublic from '@/components/layout/header/upload-video/upload-video-form/toggle-public/TogglePublic'
+import { useUploadVideoForm } from '@/components/layout/header/upload-video/upload-video-form/useUploadVideoForm'
+import VideoInformation from '@/components/layout/header/upload-video/upload-video-form/video-information/VideoInformation'
 import Field from '@/components/ui/Field/Field'
 import TextArea from '@/components/ui/TextArea/TextArea'
 import UploadField from '@/components/ui/UploadField/UploadField'
@@ -8,43 +13,38 @@ import UploadField from '@/components/ui/UploadField/UploadField'
 import { IMediaResponse } from '@/services/MediaService'
 
 import styles from '../UploadVideo.module.scss'
-import TogglePublic from '../upload-video-form/toggle-public/TogglePublic'
-
-import SuccessMessage from './SuccessMessage'
-import FooterForm from './footer-form/FooterForm'
-import { useUploadVideoForm } from './useUploadVideoForm'
-import VideoInformation from './video-information/VideoInformation'
 
 const UploadVideoForm: FC<{
 	videoId: string
 	handleCloseModal: () => void
 }> = ({ videoId, handleCloseModal }) => {
-	const { form, status, isSuccess, media } = useUploadVideoForm({
+	const { form, status, media } = useUploadVideoForm({
 		videoId,
 		handleCloseModal
 	})
+
 	return (
 		<form
 			onSubmit={form.handleSubmit(form.onSubmit)}
 			className='flex flex-wrap'
 		>
-			{isSuccess && <SuccessMessage />}
-			{status.percent > 0 ? (
+			{status.isSuccess && <SuccessMessage />}
+			{status.isChosen ? (
 				<>
-					<div className='w-7/12 pr-6 pt-4'>
+					<div className='w-7/12 pr-6 pt-8'>
 						<Field
 							{...form.register('name', {
 								required: 'Name is required'
 							})}
-							//@ts-ignore
-							placeholder='Email'
+							// @ts-ignore
+							placeholder='Name'
 							error={form.errors.name}
 						/>
 						<TextArea
 							{...form.register('description', {
 								required: 'Description is required'
 							})}
-							//@ts-ignore
+							// @ts-ignore
 							placeholder='Description'
 							error={form.errors.description}
 						/>
@@ -54,6 +54,7 @@ const UploadVideoForm: FC<{
 								name='thumbnailPath'
 								render={({ field: { onChange } }) => (
 									<UploadField
+										accept='image/png, image/jpeg'
 										folder='thumbnails'
 										onChange={(value: IMediaResponse) => {
 											onChange(value.url)
@@ -65,16 +66,17 @@ const UploadVideoForm: FC<{
 						<Controller
 							control={form.control}
 							name='isPublic'
-							defaultValue={false}
 							render={({ field: { onChange, value } }) => (
 								<TogglePublic
-									clickHandler={() => onChange(!value)}
+									clickHandler={() => {
+										onChange(!value)
+									}}
 									isEnabled={!!value}
 								/>
 							)}
 						/>
 					</div>
-					<div className='w-5/12 p-3 pl-10'>
+					<div className={'w-5/12 p-3 pl-10'}>
 						<VideoInformation
 							fileName={media.videoFileName}
 							videoId={videoId}
@@ -83,7 +85,7 @@ const UploadVideoForm: FC<{
 						/>
 					</div>
 
-					<FooterForm percent={status.percent} isUploaded={status.isUploaded} />
+					<FooterForm isUploaded={status.isUploaded} percent={status.percent} />
 				</>
 			) : (
 				<div className={styles.uploadScreen}>
@@ -92,10 +94,12 @@ const UploadVideoForm: FC<{
 						name='videoPath'
 						render={() => (
 							<UploadField
-								title='Upload video to start 👇'
+								accept='video/mp4,video/x-m4v,video/*'
+								title={'Upload video first👇'}
 								folder='videos'
 								onChange={media.handleUploadVideo}
-								setValue={media.setProgressPercentage}
+								setValue={status.setProgressPercentage}
+								setIsChosen={status.setIsChosen}
 							/>
 						)}
 					/>

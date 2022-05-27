@@ -8,8 +8,8 @@ import { VideoService } from '@/services/VideoService'
 import { IVideoDto } from '@/types/video.interface'
 
 interface IUseUploadVideoForm {
-	videoId: string
 	handleCloseModal: () => void
+	videoId: string
 }
 
 export const useUploadVideoForm = ({
@@ -20,19 +20,19 @@ export const useUploadVideoForm = ({
 		register,
 		formState: { errors },
 		control,
+		handleSubmit,
 		watch,
 		setValue,
-		handleSubmit,
 		reset
 	} = useForm<IVideoDto>({
 		mode: 'onChange'
 	})
 
 	const { mutateAsync, isSuccess } = useMutation(
-		'update video',
+		'Update video',
 		(body: IVideoDto) => VideoService.updateVideo(videoId, body),
 		{
-			onSuccess: () => {
+			onSuccess() {
 				setTimeout(() => {
 					handleCloseModal()
 					reset()
@@ -45,8 +45,9 @@ export const useUploadVideoForm = ({
 		await mutateAsync(data)
 	}
 
-	const [videoFileName, setVideoFileName] = useState('')
+	const videoPath = watch('videoPath')
 	const thumbnailPath = watch('thumbnailPath')
+	const [videoFileName, setVideoFileName] = useState('')
 
 	const handleUploadVideo = (value: IMediaResponse) => {
 		setValue('videoPath', value.url)
@@ -54,33 +55,36 @@ export const useUploadVideoForm = ({
 		setVideoFileName(value.name)
 	}
 
+	const [isChosen, setIsChosen] = useState(false)
+
 	const [percent, setPercent] = useState(0)
 	const [isUploaded, setIsUploaded] = useState(false)
-	const setProgressPercentage = (value: number) => {
-		setPercent(value)
-		if (value === 100) {
-			setIsUploaded(true)
-		}
+	const setProgressPercentage = (val: number) => {
+		setPercent(val)
+		if (val === 100) setIsUploaded(true)
 	}
 
 	return {
 		form: {
 			register,
+			errors,
 			control,
 			handleSubmit,
-			onSubmit,
-			errors
+			onSubmit
 		},
 		media: {
-			setProgressPercentage,
-			videoFileName,
+			videoPath,
 			thumbnailPath,
+			videoFileName,
 			handleUploadVideo
 		},
 		status: {
+			isSuccess,
+			isChosen,
+			setIsChosen,
 			percent,
-			isUploaded
-		},
-		isSuccess
+			isUploaded,
+			setProgressPercentage
+		}
 	}
 }

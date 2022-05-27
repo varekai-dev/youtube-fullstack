@@ -1,13 +1,12 @@
 import { FC, useState } from 'react'
-import { BsFillPlusCircleFill } from 'react-icons/bs'
+import { BsPlusCircleFill } from 'react-icons/bs'
 import { useMutation } from 'react-query'
+
+import UploadModal from '@/components/layout/header/upload-video/UploadModal'
 
 import { VideoService } from '@/services/VideoService'
 
-import stylesIcon from '../Icons/IconsRight.module.scss'
-
-import UploadModal from './UploadModal'
-import styles from './UploadVideo.module.scss'
+import stylesIcons from '../icons/IconsRight.module.scss'
 
 const UploadVideo: FC = () => {
 	const [isOpen, setIsOpen] = useState(false)
@@ -15,9 +14,7 @@ const UploadVideo: FC = () => {
 
 	const { mutate } = useMutation(
 		'create video',
-		() => {
-			return VideoService.createVideo()
-		},
+		() => VideoService.createVideo(),
 		{
 			onSuccess: ({ data }) => {
 				setVideoId(data)
@@ -28,8 +25,8 @@ const UploadVideo: FC = () => {
 
 	return (
 		<>
-			<button className={stylesIcon.button} onClick={() => mutate()}>
-				<BsFillPlusCircleFill fill='#cd3a42' />
+			<button className={stylesIcons.button} onClick={() => mutate()}>
+				<BsPlusCircleFill fill='#cd3a42' />
 			</button>
 			<UploadModal isOpen={isOpen} setIsOpen={setIsOpen} videoId={videoId} />
 		</>

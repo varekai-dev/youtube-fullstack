@@ -1,8 +1,10 @@
-import React, { FC, useState } from 'react'
+import { FC, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { FaUserCircle } from 'react-icons/fa'
 import { useMutation } from 'react-query'
 
+import { IAuthFields } from '@/components/layout/header/auth-form/auth-form.inteface'
+import { validEmail } from '@/components/layout/header/auth-form/auth.contstants'
 import Button from '@/components/ui/Button/Button'
 import Field from '@/components/ui/Field/Field'
 
@@ -11,16 +13,15 @@ import { AuthService } from '@/services/auth/auth.service'
 import { useAuth } from '@/hooks/useAuth'
 import { useOutside } from '@/hooks/useOutside'
 
-import stylesIcons from '../Icons/IconsRight.module.scss'
+import stylesIcons from '../icons/IconsRight.module.scss'
 
 import styles from './AuthForm.module.scss'
-import { IAuthFields } from './auth-form.interface'
-import { validEmail } from './auth.constants'
 
 const AuthForm: FC = () => {
 	const { ref, setIsShow, isShow } = useOutside(false)
-	const { setData } = useAuth()
+
 	const [type, setType] = useState<'login' | 'register'>('login')
+
 	const {
 		register,
 		formState: { errors },
@@ -28,6 +29,8 @@ const AuthForm: FC = () => {
 	} = useForm<IAuthFields>({
 		mode: 'onChange'
 	})
+
+	const { setData } = useAuth()
 
 	const { mutate: loginSync } = useMutation(
 		'login',
@@ -57,7 +60,7 @@ const AuthForm: FC = () => {
 	return (
 		<div className={styles.wrapper} ref={ref}>
 			<button className={stylesIcons.button} onClick={() => setIsShow(!isShow)}>
-				<FaUserCircle fill='#a4a4a4' />
+				<FaUserCircle fill='#A4A4A4' />
 			</button>
 			{isShow && (
 				<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -66,10 +69,10 @@ const AuthForm: FC = () => {
 							required: 'Email is required',
 							pattern: {
 								value: validEmail,
-								message: 'Please enter a valid email'
+								message: 'Please enter a valid email address'
 							}
 						})}
-						//@ts-ignore
+						// @ts-ignore
 						placeholder='Email'
 						error={errors.email}
 					/>
@@ -78,20 +81,17 @@ const AuthForm: FC = () => {
 							required: 'Password is required',
 							minLength: {
 								value: 6,
-								message: 'Password must be at least 6 characters'
+								message: 'Min length should more 6 symbols'
 							}
 						})}
-						//@ts-ignore
+						// @ts-ignore
 						placeholder='Password'
-						type='password'
 						error={errors.password}
+						type={'password'}
 					/>
-					<div className={'mt-3 mb-1 text-center'}>
-						<Button type='submit' onClick={() => setType('login')}>
-							Login
-						</Button>
+					<div className={'mt-5 mb-1 text-center'}>
+						<Button onClick={() => setType('login')}>Login</Button>
 					</div>
-
 					<button
 						className={styles.register}
 						onClick={() => setType('register')}

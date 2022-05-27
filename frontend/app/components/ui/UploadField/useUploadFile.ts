@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, Dispatch, SetStateAction } from 'react'
 import { useMutation } from 'react-query'
 
 import { MediaService } from '@/services/MediaService'
@@ -6,7 +6,8 @@ import { MediaService } from '@/services/MediaService'
 export const useUploadFile = (
 	onChange: (...event: any) => void,
 	folder?: string,
-	setValue?: (value: number) => void
+	setValue?: (val: number) => void,
+	setIsChosen?: Dispatch<SetStateAction<boolean>>
 ) => {
 	const { mutateAsync } = useMutation(
 		'upload file',
@@ -26,9 +27,12 @@ export const useUploadFile = (
 			}
 		}
 	)
+
 	const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
 		const files = e.target.files
 		if (!files?.length) return
+
+		setIsChosen && setIsChosen(true)
 
 		const formData = new FormData()
 		formData.append('media', files[0])

@@ -1,9 +1,10 @@
 import { Switch } from '@headlessui/react'
 import cn from 'classnames'
-import React, { FC, useState } from 'react'
+import { FC } from 'react'
+
+import { ITogglePublic } from '@/components/layout/header/upload-video/upload-video-form/toggle-public/toggle-public.interface'
 
 import styles from './TogglePublic.module.scss'
-import { ITogglePublic } from './toggle-public.interface'
 
 const TogglePublic: FC<ITogglePublic> = ({ isEnabled, clickHandler }) => {
 	return (
@@ -16,7 +17,6 @@ const TogglePublic: FC<ITogglePublic> = ({ isEnabled, clickHandler }) => {
 					'bg-gray-200': !isEnabled
 				})}
 			>
-				<span className='sr-only'>Enable notifications</span>
 				<span
 					className={cn(styles.point, {
 						'translate-x-6': isEnabled,
@@ -24,7 +24,7 @@ const TogglePublic: FC<ITogglePublic> = ({ isEnabled, clickHandler }) => {
 					})}
 				/>
 			</Switch>
-			<span onClick={clickHandler}>Public video</span>
+			<span onClick={clickHandler}>Публичное видео</span>
 		</div>
 	)
 }

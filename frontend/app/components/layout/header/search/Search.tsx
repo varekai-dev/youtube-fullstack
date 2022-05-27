@@ -1,15 +1,13 @@
 import { FC } from 'react'
-import { useQuery } from 'react-query'
 
 import { useSearch } from '@/components/layout/header/search/useSearch'
 import VideoItem from '@/components/ui/video-item/VideoItem'
-
-import { VideoService } from '@/services/VideoService'
 
 import styles from './Search.module.scss'
 
 const Search: FC = () => {
 	const { data, handleSearch, searchTerm, isSuccess } = useSearch()
+
 	return (
 		<div className={styles.search_top}>
 			<label>
@@ -22,12 +20,12 @@ const Search: FC = () => {
 				{/* eslint-disable-next-line @next/next/no-img-element */}
 				<img src='http://localhost:3000/img/common/search.svg' alt='' />
 			</label>
-			{isSuccess && !!searchTerm.length && (
+			{isSuccess && (
 				<div className={styles.result}>
 					{data?.length ? (
-						data.map((video) => <VideoItem key={video._id} item={video} />)
+						data.map((video) => <VideoItem item={video} key={video._id} />)
 					) : (
-						<div>No results</div>
+						<div>Videos not found!</div>
 					)}
 				</div>
 			)}

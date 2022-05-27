@@ -1,9 +1,8 @@
 import { FC } from 'react'
-import { BsPlusCircleFill } from 'react-icons/bs'
-import { FaUserCircle } from 'react-icons/fa'
 
-import IconsRight from './Icons/IconsRight'
-import Search from './search/Search'
+import Search from '@/components/layout/header/search/Search'
+
+import IconsRight from './icons/IconsRight'
 
 const Header: FC = () => {
 	return (

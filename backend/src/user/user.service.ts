@@ -1,14 +1,14 @@
-import { genSalt, hash } from 'bcryptjs'
-import { UserDto } from './user.dto'
 import {
 	Injectable,
 	NotFoundException,
 	UnauthorizedException
 } from '@nestjs/common'
 import { ModelType } from '@typegoose/typegoose/lib/types'
-import { InjectModel } from 'nestjs-typegoose'
-import { UserModel } from './user.model'
+import { genSalt, hash } from 'bcryptjs'
 import { Types } from 'mongoose'
+import { InjectModel } from 'nestjs-typegoose'
+import { UserDto } from './user.dto'
+import { UserModel } from './user.model'
 
 @Injectable()
 export class UserService {
@@ -38,6 +38,7 @@ export class UserService {
 	async byId(_id: Types.ObjectId) {
 		const user = await this.UserModel.findById(_id, '-password -__v')
 		if (!user) throw new UnauthorizedException('User not found')
+
 		return user
 	}
 
@@ -46,7 +47,7 @@ export class UserService {
 
 		const isSameUser = await this.UserModel.findOne({ email: dto.email })
 		if (isSameUser && String(_id) !== String(isSameUser._id))
-			throw new NotFoundException('Email already exists')
+			throw new NotFoundException('Email is busy')
 
 		if (dto.password) {
 			const salt = await genSalt(10)
@@ -60,7 +61,6 @@ export class UserService {
 		user.avatarPath = dto.avatarPath
 
 		return await user.save()
-		// return await user.populate('user', 'name avatarPath isVerified')
 	}
 
 	async getMostPopular() {
@@ -70,5 +70,9 @@ export class UserService {
 		)
 			.sort({ subscribersCount: -1 })
 			.exec()
+	}
+
+	async getAll() {
+		return this.UserModel.find({}, '-password -__v').exec()
 	}
 }

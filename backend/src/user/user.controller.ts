@@ -1,19 +1,20 @@
-import { IdValidationPipe } from './../pipes/id.validation.pipe'
 import {
-	Controller,
 	Body,
-	UsePipes,
-	ValidationPipe,
-	HttpCode,
-	Put,
+	Controller,
 	Get,
-	Param
+	HttpCode,
+	Param,
+	Put,
+	UsePipes,
+	ValidationPipe
 } from '@nestjs/common'
-import { Auth } from 'src/auth/decorators/auth.decorator'
+import { Types } from 'mongoose'
+import { Auth } from '../auth/decorators/auth.decorator'
+import { IdValidationPipe } from '../pipes/id.validation.pipe'
 import { CurrentUser } from './decorators/user.decorator'
+
 import { UserDto } from './user.dto'
 import { UserService } from './user.service'
-import { Types } from 'mongoose'
 
 @Controller('user')
 export class UserController {
@@ -23,6 +24,11 @@ export class UserController {
 	@Auth()
 	async getProfile(@CurrentUser('_id') _id: Types.ObjectId) {
 		return this.userService.getUser(_id)
+	}
+
+	@Get('by-id/:id')
+	async getUser(@Param('id', IdValidationPipe) id: string) {
+		return this.userService.getUser(new Types.ObjectId(id))
 	}
 
 	@UsePipes(new ValidationPipe())
@@ -36,18 +42,24 @@ export class UserController {
 		return this.userService.updateProfile(_id, dto)
 	}
 
+	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
-	@Put(':userId')
-	@Auth() // Change to admin
+	@Put(':id')
+	@Auth() //Admin
 	async updateUser(
-		@Param('userId', IdValidationPipe) userId: Types.ObjectId,
+		@Param('id', IdValidationPipe) id: Types.ObjectId,
 		@Body() dto: UserDto
 	) {
-		return this.userService.updateProfile(userId, dto)
+		return this.userService.updateProfile(id, dto)
 	}
 
 	@Get('most-popular')
 	async getMostPopular() {
 		return this.userService.getMostPopular()
+	}
+
+	@Get()
+	async getUsers() {
+		return this.userService.getAll()
 	}
 }

@@ -1,9 +1,12 @@
 import { FC } from 'react'
 import { BiLike } from 'react-icons/bi'
+import { useMutation } from 'react-query'
 import { formatNumberToK } from 'utils/FormatNumberToK'
 
 import ChannelInfoShort from '@/components/ui/ChannelInfoShort/ChannelInfoShort'
 import VideoStatistics from '@/components/ui/video-item/VideoStatistics/VideoStatistics'
+
+import { VideoService } from '@/services/VideoService'
 
 import { IUser } from '@/types/user.interface'
 import { IVideo } from '@/types/video.interface'
@@ -14,10 +17,13 @@ const VideoDetail: FC<{ video: IVideo; channel: IUser }> = ({
 	video,
 	channel
 }) => {
+	const { mutateAsync, data } = useMutation(['like', video._id], () =>
+		VideoService.updateLikes(video._id)
+	)
 	return (
-		<div>
-			<div>
-				<div>
+		<div className={styles.detail}>
+			<div className={styles.wrapper}>
+				<div className={styles.text}>
 					<h1>{video.name}</h1>
 					<VideoStatistics
 						createdAt={video.createdAt}
@@ -27,12 +33,12 @@ const VideoDetail: FC<{ video: IVideo; channel: IUser }> = ({
 				</div>
 				<div>
 					<button className={styles.likeButton}>
-						<BiLike className={styles.likeIcon} />
-						<span>{formatNumberToK(video.likes)}</span>
+						<BiLike className={styles.likeIcon} onClick={() => mutateAsync()} />
+						<span>{formatNumberToK(data?.data.likes ?? video.likes)}</span>
 					</button>
 				</div>
 			</div>
-			<article>{video.description}</article>
+			<article className={styles.article}>{video.description}</article>
 			<ChannelInfoShort channel={channel} />
 		</div>
 	)

@@ -12,8 +12,8 @@ const ChannelInfoShort: FC<{ channel: IUser }> = ({ channel }) => {
 			<Image
 				src={channel.avatarPath}
 				alt={channel.name}
-				width={100}
-				height={100}
+				width={50}
+				height={50}
 				quality={90}
 			/>
 			<div>

@@ -21,7 +21,8 @@ export class VideoService {
 		const video = await this.VideoModel.findOne(
 			isPublic ? { _id, isPublic: true } : { _id },
 			'-__v'
-		).populate('user', 'name location avatarPath isVerified subscriberCount')
+		).populate('user', 'name location avatarPath isVerified subscribersCount')
+
 		if (!video) throw new UnauthorizedException('Video not found')
 
 		return video
@@ -94,17 +95,18 @@ export class VideoService {
 		return updateVideo
 	}
 
-	async updateReaction(_id: string, type: 'inc' | 'dis') {
-		if (!type) throw new BadRequestException('Type query is not valid')
-		const updateVideo = await this.VideoModel.findByIdAndUpdate(
-			_id,
-			{ $inc: { likes: type === 'inc' ? 1 : -1 } },
-			{
-				new: true
-			}
-		).exec()
-		if (!updateVideo) throw new NotFoundException('Video not found')
-
-		return updateVideo
+	async updateReaction(videoId: string, userId: Types.ObjectId) {
+		const findVideo = await this.VideoModel.findById(videoId)
+		if (!findVideo) throw new NotFoundException('Video not found')
+		const { peopleLiked } = findVideo
+		if (peopleLiked.includes(String(userId))) {
+			const newUsers = peopleLiked.filter((user) => user !== String(userId))
+			findVideo.peopleLiked = [...newUsers]
+		} else {
+			findVideo.peopleLiked = [...peopleLiked, String(userId)]
+		}
+		findVideo.likes = peopleLiked.length
+		await findVideo.save()
+		return findVideo
 	}
 }

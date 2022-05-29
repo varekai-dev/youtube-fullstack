@@ -10,9 +10,7 @@ const Recommended: FC<{ newVideos: IVideo[] }> = ({ newVideos }) => {
 			<div className='top_block'>
 				<div className='left_title title_gray'>
 					<h2>Newest video</h2>
-					<div className='showmore'>Show More</div>
 				</div>
-				<div className='sort'>By View Trending</div>
 			</div>
 
 			<div className='catalog'>

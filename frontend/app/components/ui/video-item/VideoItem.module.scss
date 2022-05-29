@@ -51,7 +51,11 @@
 		color: $gray;
 
 		&.subscribers {
-			@apply text-primary;
+			@apply text-primary ml-4;
 		}
 	}
+}
+
+.views {
+	@apply mr-4;
 }

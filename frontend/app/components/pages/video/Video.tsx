@@ -1,6 +1,9 @@
-import { FC } from 'react'
+import { FC, useEffect } from 'react'
+import { useMutation } from 'react-query'
 
 import Layout from '@/components/layout/Layout'
+
+import { VideoService } from '@/services/VideoService'
 
 import { IUser } from '@/types/user.interface'
 
@@ -10,6 +13,12 @@ import VideoPlayer from './video-player/VideoPlayer'
 import { IVideoPage } from './video.interface'
 
 const Video: FC<IVideoPage> = ({ video }) => {
+	const { mutate } = useMutation(['update views', video._id], () =>
+		VideoService.updateViews(video._id)
+	)
+	useEffect(() => {
+		mutate()
+	}, [])
 	return (
 		<Layout title={video.name}>
 			<div>
@@ -19,7 +28,7 @@ const Video: FC<IVideoPage> = ({ video }) => {
 						<VideoDetail video={video} channel={video.user || ({} as IUser)} />
 					</div>
 					<div className='right_side'>
-						<Comments />
+						<Comments videoId={video._id} />
 					</div>
 				</div>
 			</div>

@@ -9,7 +9,6 @@ const MostPopularVideo: FC<{ video: IVideo }> = ({ video }) => {
 		<div id='live'>
 			<div className='title_gray mb-5'>
 				<h2>Live</h2>
-				<div className='showmore'>Show More</div>
 			</div>
 			<VideoItem item={video} tag={'🔥 Hot'} />
 		</div>

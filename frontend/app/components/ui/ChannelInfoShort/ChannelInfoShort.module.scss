@@ -8,13 +8,13 @@
 	}
 
 	> div {
-		@apply ml-4;
+		@apply ml-2;
 		> .name {
-			@apply mb-2 font-bold text-3xl;
+			@apply font-bold text-lg;
 		}
 
 		> .location {
-			@apply text-base text-left;
+			@apply text-sm text-left;
 			color: $gray;
 		}
 	}

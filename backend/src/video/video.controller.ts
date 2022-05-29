@@ -93,8 +93,8 @@ export class VideoController {
 	@Auth()
 	async updateLikes(
 		@Param('videoId', IdValidationPipe) videoId: string,
-		@Query('type') type: 'inc' | 'dis'
+		@CurrentUser('_id') _id: Types.ObjectId
 	) {
-		return this.videoService.updateReaction(videoId, type)
+		return this.videoService.updateReaction(videoId, _id)
 	}
 }

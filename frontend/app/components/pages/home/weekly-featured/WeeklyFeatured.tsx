@@ -17,7 +17,7 @@ const WeeklyFeatured: FC<IWeeklyFeatured> = ({ weeklyVideos, randomVideo }) => {
 			<div className='info_wf'>
 				<div className='sub_name'>Weekly Featured</div>
 				<h1>Hello, Summer Vacation!</h1>
-				<div className='descr'>
+				<div className='description'>
 					Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam
 					harum placeat ullam vel non, quisquam totam, doloremque expedita odit
 					consectetur minima vitae. Facilis nostrum cumque illum fugit rem, nam

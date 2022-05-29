@@ -11,12 +11,15 @@ import { VideoService } from '@/services/VideoService'
 import { IUser } from '@/types/user.interface'
 import { IVideo } from '@/types/video.interface'
 
+import { useAuth } from '@/hooks/useAuth'
+
 import styles from './VideoDetail.module.scss'
 
 const VideoDetail: FC<{ video: IVideo; channel: IUser }> = ({
 	video,
 	channel
 }) => {
+	const { user } = useAuth()
 	const { mutateAsync, data } = useMutation(['like', video._id], () =>
 		VideoService.updateLikes(video._id)
 	)
@@ -33,7 +36,10 @@ const VideoDetail: FC<{ video: IVideo; channel: IUser }> = ({
 				</div>
 				<div>
 					<button className={styles.likeButton}>
-						<BiLike className={styles.likeIcon} onClick={() => mutateAsync()} />
+						<BiLike
+							className={styles.likeIcon}
+							onClick={() => (user ? mutateAsync() : null)}
+						/>
 						<span>{formatNumberToK(data?.data.likes ?? video.likes)}</span>
 					</button>
 				</div>

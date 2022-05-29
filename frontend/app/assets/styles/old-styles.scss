@@ -71,6 +71,9 @@ body {
 img {
 	max-width: 100%;
 }
+.content-wrapper {
+	height: calc(100% - 70px);
+}
 
 .img-responsive {
 	display: block;

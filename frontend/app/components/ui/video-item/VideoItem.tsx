@@ -3,7 +3,9 @@ import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime.js'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { FC } from 'react'
+import { BiEdit, BiTrash } from 'react-icons/bi'
 import { formatNumberToK } from 'utils/FormatNumberToK'
 
 import VideoDuration from './VideoDuration'
@@ -12,9 +14,33 @@ import { IVideoItem } from './video-item.interface'
 
 dayjs.extend(relativeTime)
 
-const VideoItem: FC<IVideoItem> = ({ item, isLarge, isAvatar, tag }) => {
+const VideoItem: FC<IVideoItem> = ({
+	item,
+	isLarge,
+	isAvatar,
+	tag,
+	removeHandler,
+	isUpdateLink
+}) => {
+	const { push } = useRouter()
 	return (
 		<div className={styles.video_item}>
+			{!!removeHandler && (
+				<button
+					className={styles.removeButton}
+					onClick={() => removeHandler(item._id)}
+				>
+					<BiTrash className={styles.removeIcon} />
+				</button>
+			)}
+			{isUpdateLink && (
+				<button
+					className={styles.editButton}
+					onClick={() => push(`/video/edit/${item._id}`)}
+				>
+					<BiEdit className={styles.editIcon} />
+				</button>
+			)}
 			<Link href={`/v/${item._id}`}>
 				<a className='block'>
 					{item.thumbnailPath && (

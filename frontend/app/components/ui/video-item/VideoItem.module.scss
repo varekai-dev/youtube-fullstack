@@ -59,3 +59,19 @@
 .views {
 	@apply mr-4;
 }
+
+.removeButton {
+	@apply absolute top-3 right-3 z-10;
+}
+
+.editButton {
+	@apply absolute top-3 right-11 z-10;
+}
+
+.removeIcon {
+	@apply text-lg text-red-700;
+}
+
+.editIcon {
+	@apply text-lg text-blue-600;
+}
